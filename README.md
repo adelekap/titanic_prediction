@@ -1,2 +1,4 @@
-# titanic_prediction
-Titanic- ML from Disaster Kaggle Challenge
+# Titanic - Machine Learning from Disaster
+Kaggle Challenge
+
+https://www.kaggle.com/competitions/titanic/overview
