@@ -10,7 +10,7 @@ from models.ml_model import MLModel
 
 
 class SVM(MLModel, ABC):
-    def __init__(self, X: pd.DataFrame, y: pd.DataFrame, features: List[Feature], model_settings: dict):
+    def __init__(self, X: pd.DataFrame, y: pd.DataFrame, features: List[Feature], model_settings: dict = None):
         super().__init__(X, y, features, model_settings)
 
         self._model = SVC(**self.model_settings)

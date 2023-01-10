@@ -9,10 +9,10 @@ from classes.feature import Feature
 
 
 class MLModel(ABC):
-    def __init__(self, X: pd.DataFrame, y: pd.DataFrame, features: List[Feature], model_settings: dict):
+    def __init__(self, X: pd.DataFrame, y: pd.DataFrame, features: List[Feature], model_settings: dict = None):
         self.X: pd.DataFrame = X[[f.name for f in features]]
         self.y: pd.DataFrame = y
-        self.model_settings: dict = model_settings
+        self.model_settings: dict = model_settings or {}
 
         self._model = None
         self._X_train = None

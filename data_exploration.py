@@ -5,6 +5,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 
 from feature_selection import suggested_features
+from models.log_regression import LogRegression
 from models.svm import SVM
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -27,3 +28,7 @@ X_train, X_test, y_train, y_test = train_test_split(X[[f.name for f in suggested
 svm = SVM(X, y, suggested_features, {'kernel': 'rbf', 'gamma': 0.6})
 svm.train_and_test()
 print(svm.accuracy)
+
+log_reg = LogRegression(X, y, suggested_features)
+log_reg.train_and_test()
+print(log_reg.accuracy)

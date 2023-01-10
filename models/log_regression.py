@@ -1,10 +1,20 @@
-from typing import Tuple
+from abc import ABC
+from typing import List
 
 import pandas as pd
-from sklearn.svm import SVC
-from sklearn import metrics
+from sklearn.linear_model import LogisticRegression
+
+from classes.feature import Feature
+
+from models.ml_model import MLModel
 
 
-def train_logistic_regression(X_train: pd.DataFrame, y_train: pd.DataFrame,
-                              X_test: pd.DataFrame, y_test: pd.DataFrame) -> Tuple[SVC, float]:
-    return
+class LogRegression(MLModel, ABC):
+    def __init__(self, X: pd.DataFrame, y: pd.DataFrame, features: List[Feature], model_settings: dict = None):
+        super().__init__(X, y, features, model_settings)
+
+        self._model = LogisticRegression(**self.model_settings)
+
+    @property
+    def model(self):
+        return self._model
