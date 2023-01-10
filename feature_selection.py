@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 from sklearn.feature_selection import SelectKBest, f_regression
 
-from models.feature import Feature
+from classes.feature import Feature
 
 
 def score_feature_correlation(X: pd.DataFrame, y: pd.DataFrame) -> List[Feature]:
