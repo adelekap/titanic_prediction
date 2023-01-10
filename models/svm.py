@@ -1,15 +1,20 @@
-from typing import Tuple
+from abc import ABC
+from typing import List
 
 import pandas as pd
 from sklearn.svm import SVC
-from sklearn import metrics
+
+from classes.feature import Feature
+
+from models.ml_model import MLModel
 
 
-def train_svm(X_train: pd.DataFrame, y_train: pd.DataFrame,
-              X_test: pd.DataFrame, y_test: pd.DataFrame) -> Tuple[SVC, float]:
-    svm = SVC(kernel='rbf', gamma=0.6)
-    svm.fit(X_train, y_train)
-    y_pred = svm.predict(X_test)
-    svm_accuracy = metrics.accuracy_score(y_test, y_pred)
+class SVM(MLModel, ABC):
+    def __init__(self, X: pd.DataFrame, y: pd.DataFrame, features: List[Feature], model_settings: dict):
+        super().__init__(X, y, features, model_settings)
 
-    return svm, svm_accuracy
+        self._model = SVC(**self.model_settings)
+
+    @property
+    def model(self):
+        return self._model
