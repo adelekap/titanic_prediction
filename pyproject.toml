@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "titanic-prediction"
+version = "0.1.0"
+description = ""
+authors = ["adelekap <adelejkap@gmail.com>"]
+readme = "README.md"
+packages = [{include = "titanic_prediction"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pandas = "^1.5.2"
+scikit-learn = "^1.2.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
