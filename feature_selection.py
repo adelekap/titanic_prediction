@@ -1,26 +1,16 @@
 from typing import List
 
 import pandas as pd
-import numpy as np
 from sklearn.feature_selection import SelectKBest, f_regression
 
 from classes.feature import Feature
 
 
-def score_feature_correlation(X: pd.DataFrame, y: pd.DataFrame) -> List[Feature]:
-    feature_names = X.columns
+def score_feature_correlation(all_features: List[Feature], X: pd.DataFrame, y: pd.DataFrame) -> List[Feature]:
     features = SelectKBest(score_func=f_regression, k='all')
-    features.fit(X, y)
+    features.fit(X.to_numpy(), y.to_numpy())
 
-    scored_features = [Feature(feature_names[i], score) for i, score in enumerate(features.scores_)]
+    for feature, score in zip(all_features, features._scores):
+        feature.set_score(score)
 
-    return scored_features
-
-
-def suggested_features(X: pd.DataFrame, y: pd.DataFrame, quartile_filter: int = 3) -> List[Feature]:
-    scored_features = score_feature_correlation(X, y)
-    cutoff = np.quantile([f.score for f in scored_features], quartile_filter/4)
-
-    strongest_features = [f for f in scored_features if f.score >= cutoff]
-
-    return strongest_features
+    return all_features
