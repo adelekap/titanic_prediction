@@ -20,7 +20,7 @@ class CategoricalMapper:
         encoding[category] = 1
 
         # return np.array(encoding)
-        return category
+        return category  # Todo: need to fix data shape
 
     def get_value_from_category(self, category: int) -> Optional[Any]:
         return self.category_to_value.get(category)
