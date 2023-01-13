@@ -19,7 +19,8 @@ class CategoricalMapper:
         encoding = [0] * len(self.distinct_values)
         encoding[category] = 1
 
-        return np.array(encoding)
+        # return np.array(encoding)
+        return category
 
     def get_value_from_category(self, category: int) -> Optional[Any]:
         return self.category_to_value.get(category)

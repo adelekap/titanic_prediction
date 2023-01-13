@@ -22,11 +22,10 @@ class ModelData:
 
         self._categorical_mappings = None
         self._encoded_data = None
-        self.suggested_features()
+        # self.suggested_features()
 
-        self.X: pd.DataFrame = self.encoded_data[[f.name for f in features]][
-            self.suggested_features(feature_correlation_quartile)]
-        self.y: pd.DataFrame = self.encoded_data[self.response_variable.name]
+        self.X: pd.DataFrame = self.encoded_data[[f.name for f in self.all_features]]
+        self.y: pd.DataFrame = self.data[self.response_variable.name]
         self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(self.X, self.y,
                                                                                 test_size=test_size, random_state=1)
 
@@ -54,12 +53,15 @@ class ModelData:
 
                 self._encoded_data[feature.name] = [mapper.get_one_hot_from_value(v) for v in
                                                     self.encoded_data[feature.name]]
+
         return self._encoded_data
+        # return pd.get_dummies(self.data[[f.name for f in self.all_features]],
+        #                       columns=[f.name for f in self.all_features if f.type == FeatureType.Categorical])
 
     def suggested_features(self, quartile_filter: int = 3) -> List[Feature]:
         scored_features = score_feature_correlation(self.all_features,
-                                                    self.encoded_data[[f.name for f in self.all_features]],
-                                                    self.encoded_data[self.response_variable.name])
+                                                    self.encoded_data,
+                                                    self.data[self.response_variable.name])
         cutoff = np.quantile([f.score for f in scored_features], quartile_filter / 4)
 
         strongest_features = [f for f in scored_features if f.score >= cutoff]
