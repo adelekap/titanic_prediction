@@ -22,7 +22,7 @@ def impute_missing_data(data: pd.DataFrame) -> pd.DataFrame:
 
     print(f'Records before data imputation: {len(data)}')
     # Todo: also need to do more intelligent imputation for Age
-    data.dropna(inplace=True)
+    data = data.dropna()
     print(f'Records after data imputation: {len(data)}')
 
     return data
