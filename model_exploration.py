@@ -5,6 +5,7 @@ import pandas as pd
 from classes.model_data import ModelData
 from data_manipulation.data_cleaning import add_engineered_features, impute_missing_data
 from data_manipulation.settings import TITANIC_FEATURES, RESPONSE_VARIABLE
+from models.decision_tree import DecisionTree
 from models.log_regression import LogRegression
 from models.svm import SVM
 
@@ -24,3 +25,8 @@ print(svm.accuracy)
 log_reg = LogRegression(data)
 log_reg.train_and_test()
 print(log_reg.accuracy)
+
+
+decision_tree = DecisionTree(data)
+decision_tree.train_and_test()
+print(decision_tree.accuracy)

@@ -1,10 +1,10 @@
-import pandas as pd
-from typing import List
+from sklearn.tree import DecisionTreeClassifier
 
-from classes.feature import Feature
+from classes.model_data import ModelData
 from models.ml_model import MLModel
 
 
 class DecisionTree(MLModel):
-    def __init__(self, X: pd.DataFrame, y: pd.DataFrame, features: List[Feature]):
-        super().__init__(X, y, features)
+    def __init__(self, data: ModelData):
+        super().__init__(data)
+        self._model = DecisionTreeClassifier()
